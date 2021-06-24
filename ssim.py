@@ -12,9 +12,9 @@ ssim_dll_path = os.path.split(os.path.realpath(__file__))[0]
 ssim_dll_name = 'ssim.dll' if(os.name=='nt') else 'libssim.so'
 
 class Loader:
-    
+
     if(os.path.exists(os.path.join(ssim_dll_path, ssim_dll_name))):
-        print_debug("load '%s'"%(os.path.join(ssim_dll_path, ssim_dll_name)), textColor='golden')
+        # print_debug("load '%s'"%(os.path.join(ssim_dll_path, ssim_dll_name)), textColor='golden')
         dll = np.ctypeslib.load_library(ssim_dll_name, ssim_dll_path)
     else:
         print_debug("load '%s' FAILED"%(os.path.join(ssim_dll_path, ssim_dll_name)), textColor='red')
@@ -60,7 +60,7 @@ class DLL:
     @staticmethod
     def had_function(name='PSNR_Byte'):
         return (name in DLL.__dict__.keys())
-    
+
     if(Loader.had_member('dll')):
         # float PSNR_Byte(Byte* pDataX, Byte* pDataY, int step, int width, int height, int maxVal);
         PSNR_Byte = Loader.get_function('float', 'PSNR_Byte', ['Byte*', 'Byte*', 'int', 'int', 'int', 'int'])
